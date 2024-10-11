@@ -24,7 +24,7 @@ public class Utente {
     @Column(name = "data_nascita", nullable = false)
     private LocalDate dataNascita;
 
-    @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
     private List<Prestito> prestiti;
 
     public Utente() {

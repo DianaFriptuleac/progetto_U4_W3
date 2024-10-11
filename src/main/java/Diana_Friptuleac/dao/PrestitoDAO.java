@@ -30,6 +30,7 @@ public class PrestitoDAO {
             transaction.commit();
             System.out.println("Prestito salvato correttamente per l'utente ID: " + utente.getIdTessera());
         } catch (Exception e) {
+            //annulo tutto
             if (transaction.isActive()) {
                 transaction.rollback();
             }
