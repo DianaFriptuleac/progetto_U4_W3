@@ -1,11 +1,12 @@
 package Diana_Friptuleac.dao;
 
-import Diana_Friptuleac.classi.Libri;
-import Diana_Friptuleac.classi.Riviste;
+import Diana_Friptuleac.classi.Catalogo;
 import Diana_Friptuleac.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
+import java.util.List;
 import java.util.UUID;
 
 public class CatalogoDAO {
@@ -15,42 +16,47 @@ public class CatalogoDAO {
         this.entityManager = entityManager;
     }
 
-    //Metodo save libro
-    public void saveLibro(Libri newLibro) {
+    // ********************** 1.Metodo per aggiungere un elemento *********************
+    public void saveElement(Catalogo newElement) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        entityManager.persist(newLibro);
+        entityManager.persist(newElement);
         transaction.commit();
-        System.out.println("Il libro " + newLibro.getTitolo() + " è stato aggiunto con successo!");
+        System.out.println("L'elemento " + newElement.getTitolo() + " è stato aggiunto con successo!");
     }
 
-    //Metodo save rivista
-    public void saveRivista(Riviste newRivista) {
+    // ************************ 2.Metodo per la rimozione di un elemento del catalogo dato il codice ISBN
+    public void deleteElement(UUID isbn) {
+        Catalogo foundElement = this.findById(String.valueOf(isbn));
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        entityManager.persist(newRivista);
+        entityManager.remove(foundElement);
         transaction.commit();
-        System.out.println("Ia rivista " + newRivista.getTitolo() + " è stata salvata con successo!");
+        System.out.println("L'elemento " + foundElement.getTitolo() + " è stato rimosso con successo!");
     }
 
-    //Metodo findById Libri
-    public Libri findByIdL(String id) {
+
+    // *********************** 3.Metodo findById element **********************************
+    public Catalogo findById(String id) {
         UUID uuid = UUID.fromString(id);
-        Libri foundL = entityManager.find(Libri.class, uuid);
+        Catalogo foundL = entityManager.find(Catalogo.class, uuid);
         if (foundL == null) {
-            throw new NotFoundException("Il libro con ID " + id + " non trovata.");
+            throw new NotFoundException("L'elemento con ID " + id + " non e stato trovata.");
         }
         return foundL;
     }
 
-    //Metodo findById Riviste
-    public Riviste findByIdR(String catalogoId) {
-        UUID uuid = UUID.fromString(catalogoId);
-        Riviste foundR = entityManager.find(Riviste.class, catalogoId);
-        if (foundR == null) {
-            throw new NotFoundException("La rivista con ID " + catalogoId + " non trovata.");
+    // *********************** 4.Metodo findByPubYear element **********************************
+    public List<Catalogo> findByYear(int anno) {
+        TypedQuery<Catalogo> query = entityManager.createQuery(
+                "SELECT e FROM Catalogo e WHERE e.annoPubblicazione = :anno", Catalogo.class);
+        query.setParameter("anno", anno);
+        List<Catalogo> resultList = query.getResultList();
+        if (resultList.isEmpty()) {
+            throw new NotFoundException("Nessun elemento pubblicato in questoo anno " + anno);
         }
-        return foundR;
+        return resultList;
     }
+
 
 }
