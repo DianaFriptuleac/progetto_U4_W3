@@ -129,14 +129,11 @@ public class Application {
         //  prestitoDAO.savePrestito(p2);
 
 
-        em.close();
-        emf.close();
-
         //******************** 7.Ricerca degli elementi attualmente in prestito dato un numero di tessera utente ***********************
         List<Prestito> prestitiAttivi = prestitoDAO.findByPrestito(uFind1.getIdTessera());
         System.out.println("Prestiti attualmente in corso per gli utente: ");
-        for (Prestito prestito : prestitiAttivi) {
-            System.out.println(prestito);
+        for (Prestito elemento : prestitiAttivi) {
+            System.out.println(elemento);
         }
 
         //******************** 7.Ricerca per prestiti scaduti ***********************
@@ -147,5 +144,7 @@ public class Application {
         }
 
 
+        em.close();
+        emf.close();
     }
 }
