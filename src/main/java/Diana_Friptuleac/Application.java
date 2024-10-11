@@ -1,9 +1,6 @@
 package Diana_Friptuleac;
 
-import Diana_Friptuleac.classi.Catalogo;
-import Diana_Friptuleac.classi.Libri;
-import Diana_Friptuleac.classi.Riviste;
-import Diana_Friptuleac.classi.Utente;
+import Diana_Friptuleac.classi.*;
 import Diana_Friptuleac.dao.CatalogoDAO;
 import Diana_Friptuleac.dao.PrestitoDAO;
 import Diana_Friptuleac.dao.UtenteDAO;
@@ -60,7 +57,7 @@ public class Application {
        */
 
 
-        //********************************* 2.Rimozione di un elemento del catalogo dato un codice ISBN *****************************
+        //********************************* 2.Rimozione di un elemento del catalogo dato un codice ISBN ********
         //catalogoDAO.deleteElement(UUID.fromString("9d1c5f2c-3b9c-4210-8443-7708725edd5b"));
 
         //********************************** 3.Ricerca per ISBN ******************************
@@ -85,40 +82,69 @@ public class Application {
         }
         System.out.println();
 
-        //Savo utenti
+        //********************************** 5.Ricerca per autore ******************************
+        List<Libri> libriPerAutore = catalogoDAO.findByAutore("Umberto Eco");
+        System.out.println("******************** Libri scritti da Umberto Eco: *******************");
+        for (Libri libro : libriPerAutore) {
+            System.out.println(libro);
+        }
+
+        System.out.println();
+
+        //********************************** 6.Ricerca per titolo o parte di esso ***********************
+        List<Catalogo> elemntoPerTitolo = catalogoDAO.findByTitle("Forbes");
+        System.out.println("******************** Elemento con il titolo Forbes: *******************");
+        System.out.println(elemntoPerTitolo);
+
+
+        //----------- Savo utenti
         Utente u1 = new Utente("Anna", "Margini", LocalDate.of(19886, 5, 24));
         Utente u2 = new Utente("Luca", "Biagi", LocalDate.of(1984, 3, 28));
         Utente u3 = new Utente("Marina", "Voli", LocalDate.of(1995, 8, 30));
-        Utente u4 = new Utente("Giulia", "Fossi", LocalDate.of(2000, 9, 10));
-        Utente u5 = new Utente("Giovanni", "Bianchi", LocalDate.of(2000, 2, 5));
 
-       /* utenteDAO.saveUtente(u1);
+
+        utenteDAO.saveUtente(u1);
         utenteDAO.saveUtente(u2);
         utenteDAO.saveUtente(u3);
-        utenteDAO.saveUtente(u4);
-        utenteDAO.saveUtente(u5);
 
-        */
+
         //Cerco gli utenti per id
-        Utente uFind1 = utenteDAO.findById("3e4b657f-e661-4b29-aa22-f0a08eb6f5df");
-        Utente uFind2 = utenteDAO.findById("97dfa489-52ed-4476-be98-7b306c1d6cfb");
-        System.out.println("Elemento trovato: " + uFind2);
+        Utente uFind1 = utenteDAO.findById("f5c25752-d7df-4d10-a4cd-90aeb2dd5f0a");
+        Utente uFind2 = utenteDAO.findById("f7d67e34-3ca3-4e22-89de-58d0d0db6b47");
+
+        System.out.println("Utente trovato 1: " + uFind1.getIdTessera());
+        System.out.println("Utente trovato 2: " + uFind2.getIdTessera());
 
 
-        //Save prestiti
-      /*  Prestito p1 = new Prestito(uFind1, lP1, LocalDate.now(), null);
-        Prestito p2 = new Prestito(uFind2, lP2, LocalDate.of(2024, 10, 8), null);*/
+        //Cerco elementi per Id
 
 
-      /*  prestitoDAO.savePrestito(p1);
-        prestitoDAO.savePrestito(p2);
-        prestitoDAO.savePrestito(p3);
-        prestitoDAO.savePrestito(p4);
-        prestitoDAO.savePrestito(p5);*/
+        Prestito p1 = new Prestito(uFind1, elementById2, LocalDate.now(), null);
+        System.out.println("Prestito creato con utente ID: " + p1.getUtente().getIdTessera());
+        Prestito p2 = new Prestito(uFind2, elementById2, LocalDate.of(2024, 10, 8), LocalDate.of(2024, 11, 30));
+        System.out.println("Prestito creato con utente ID: " + p2.getUtente().getIdTessera());
+
+        // Salva i prestiti nel database
+        //prestitoDAO.savePrestito(p1);
+        //  prestitoDAO.savePrestito(p2);
 
 
         em.close();
         emf.close();
+
+        //******************** 7.Ricerca degli elementi attualmente in prestito dato un numero di tessera utente ***********************
+        List<Prestito> prestitiAttivi = prestitoDAO.findByPrestito(uFind1.getIdTessera());
+        System.out.println("Prestiti attualmente in corso per gli utente: ");
+        for (Prestito prestito : prestitiAttivi) {
+            System.out.println(prestito);
+        }
+
+        //******************** 7.Ricerca per prestiti scaduti ***********************
+        List<Prestito> prestitiScaduti = prestitoDAO.findByPScaduto();
+        System.out.println("Prestiti scaduti per: ");
+        for (Prestito prestito : prestitiScaduti) {
+            System.out.println(prestito);
+        }
 
 
     }

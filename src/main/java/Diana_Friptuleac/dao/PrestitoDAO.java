@@ -6,6 +6,9 @@ import Diana_Friptuleac.exceptions.ErrorePrestitoException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.List;
+import java.util.UUID;
+
 public class PrestitoDAO {
     private final EntityManager entityManager;
 
@@ -23,16 +26,9 @@ public class PrestitoDAO {
             if (utente == null || utente.getIdTessera() == null) {
                 throw new ErrorePrestitoException("Errore!!! Utente non trovato o ID utente mancante per questo prestito!");
             }
-
-
-            System.out.println("Salvando prestito per utente ID: " + utente.getIdTessera());
-            System.out.println("Articolo prestato ISBN: " + newPrestito.getArticoloPrestato().getISBN());
-
-
             entityManager.persist(newPrestito);
             transaction.commit();
-            System.out.println("Prestito salvato con successo per l'utente: " + utente.getName() + " " + utente.getCognome());
-
+            System.out.println("Prestito salvato correttamente per l'utente ID: " + utente.getIdTessera());
         } catch (Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
@@ -40,4 +36,20 @@ public class PrestitoDAO {
             throw new ErrorePrestitoException("Errore durante il salvataggio del prestito: " + e.getMessage());
         }
     }
+
+    // *********************** 7.Metodo findByPrestito **********************************
+    public List<Prestito> findByPrestito(UUID idTessera) {
+        String query = "SELECT p FROM Prestito p WHERE p.utente.idTessera = :idTessera AND p.dataEffettiva IS NULL";
+        return entityManager.createQuery(query, Prestito.class)
+                .setParameter("idTessera", idTessera)
+                .getResultList();
+    }
+
+    // *********************** 8.Metodo findByPScaduto **********************************
+    public List<Prestito> findByPScaduto() {
+        String query = "SELECT p FROM Prestito p WHERE p.dataRPrevista < CURRENT_DATE AND p.dataEffettiva IS NULL";
+        return entityManager.createQuery(query, Prestito.class)
+                .getResultList();
+    }
+
 }

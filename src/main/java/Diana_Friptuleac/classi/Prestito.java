@@ -13,8 +13,9 @@ public class Prestito {
     @Column(name = "id_prestito")
     private UUID idPrestito;
 
+
     @ManyToOne
-    @JoinColumn(name = "utente_id", nullable = false)
+    @JoinColumn(name = "utente_id", referencedColumnName = "id_tessera", nullable = false)
     private Utente utente;
 
     @ManyToOne
@@ -29,6 +30,7 @@ public class Prestito {
 
     @Column(name = "data_rEffettiva")
     private LocalDate dataREffettiva;
+
 
     public Prestito() {
     }

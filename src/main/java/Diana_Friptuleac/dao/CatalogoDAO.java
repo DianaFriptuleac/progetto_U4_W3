@@ -1,6 +1,7 @@
 package Diana_Friptuleac.dao;
 
 import Diana_Friptuleac.classi.Catalogo;
+import Diana_Friptuleac.classi.Libri;
 import Diana_Friptuleac.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -56,6 +57,20 @@ public class CatalogoDAO {
             throw new NotFoundException("Nessun elemento pubblicato in questoo anno " + anno);
         }
         return resultList;
+    }
+
+    // *********************** 5.Metodo findByAutore **********************************
+    public List<Libri> findByAutore(String autore) {
+        return entityManager.createNamedQuery("Libri.findByAutore", Libri.class)
+                .setParameter("autore", autore)
+                .getResultList();
+    }
+
+    // *********************** 6.Metodo findByTitle **********************************
+    public List<Catalogo> findByTitle(String titolo) {
+        return entityManager.createNamedQuery("Catalogo.findByTitle", Catalogo.class)
+                .setParameter("titolo", "%" + titolo + "%")
+                .getResultList();
     }
 
 

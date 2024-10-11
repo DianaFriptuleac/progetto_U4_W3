@@ -15,13 +15,13 @@ public class Utente {
     @Column(name = "id_tessera")
     private UUID idTessera;
 
-    @Column(name = "nome")
+    @Column(name = "nome", nullable = false)
     private String name;
 
-    @Column(name = "cognome")
+    @Column(name = "cognome", nullable = false)
     private String cognome;
 
-    @Column(name = "data_nascita")
+    @Column(name = "data_nascita", nullable = false)
     private LocalDate dataNascita;
 
     @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, orphanRemoval = true)

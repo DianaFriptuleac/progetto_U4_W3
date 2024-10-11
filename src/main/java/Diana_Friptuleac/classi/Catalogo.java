@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@NamedQuery(name = "Catalogo.findByTitle", query = "SELECT e FROM Catalogo e WHERE e.titolo LIKE :titolo")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "catalogo")
 public abstract class Catalogo {
@@ -21,6 +22,7 @@ public abstract class Catalogo {
 
     @Column(name = "nr_pagine")
     private int nrPagine;
+
 
     public Catalogo() {
     }

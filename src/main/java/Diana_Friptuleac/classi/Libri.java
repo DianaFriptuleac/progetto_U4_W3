@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 
 @Entity
+@NamedQuery(name = "Libri.findByAutore", query = "SELECT l FROM Libri l WHERE l.autore = :autore")
 @Table(name = "libri")
 public class Libri extends Catalogo {
 
