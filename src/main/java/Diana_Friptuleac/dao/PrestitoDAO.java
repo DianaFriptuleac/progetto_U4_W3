@@ -48,7 +48,7 @@ public class PrestitoDAO {
 
     // *********************** 8.Metodo findByPScaduto **********************************
     public List<Prestito> findByPScaduto() {
-        String query = "SELECT p FROM Prestito p WHERE p.dataRPrevista < CURRENT_DATE AND p.dataEffettiva IS NULL";
+        String query = "SELECT p FROM Prestito p WHERE p.dataPrevista < CURRENT_DATE AND p.dataEffettiva IS NULL";
         return entityManager.createQuery(query, Prestito.class)
                 .getResultList();
     }

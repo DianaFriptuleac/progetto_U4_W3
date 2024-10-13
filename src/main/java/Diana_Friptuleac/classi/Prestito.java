@@ -25,11 +25,11 @@ public class Prestito {
     @Column(name = "data_inizio")
     private LocalDate dataInizioPrestito;
 
-    @Column(name = "data_rPrevista")
-    private LocalDate dataRPrevista;
+    @Column(name = "data_prevista")
+    private LocalDate dataPrevista;
 
-    @Column(name = "data_rEffettiva")
-    private LocalDate dataREffettiva;
+    @Column(name = "data_effettiva")
+    private LocalDate dataEffettiva;
 
 
     public Prestito() {
@@ -39,8 +39,8 @@ public class Prestito {
         this.utente = utente;
         this.articoloPrestato = articoloPrestato;
         this.dataInizioPrestito = dataInizioPrestito;
-        this.dataRPrevista = dataInizioPrestito.plusDays(30);
-        this.dataREffettiva = dataREffettiva;
+        this.dataPrevista = dataInizioPrestito.plusDays(30);
+        this.dataEffettiva = dataREffettiva;
     }
 
 
@@ -68,20 +68,20 @@ public class Prestito {
         this.dataInizioPrestito = dataInizioPrestito;
     }
 
-    public LocalDate getDataRPrevista() {
-        return dataRPrevista;
+    public LocalDate getDataPrevista() {
+        return dataPrevista;
     }
 
-    public void setDataRPrevista(LocalDate dataRPrevista) {
-        this.dataRPrevista = dataRPrevista;
+    public void setDataRPrevista(LocalDate dataPrevista) {
+        this.dataPrevista = dataPrevista;
     }
 
-    public LocalDate getDataREffettiva() {
-        return dataREffettiva;
+    public LocalDate getDataEffettiva() {
+        return dataEffettiva;
     }
 
-    public void setDataREffettiva(LocalDate dataREffettiva) {
-        this.dataREffettiva = dataREffettiva;
+    public void setDataREffettiva(LocalDate dataEffettiva) {
+        this.dataEffettiva = dataEffettiva;
     }
 
     @Override
@@ -90,8 +90,8 @@ public class Prestito {
                 "utente=" + utente +
                 ", articoloPrestato=" + articoloPrestato +
                 ", dataInizioPrestito=" + dataInizioPrestito +
-                ", dataRPrevista=" + dataRPrevista +
-                ", dataREffettiva=" + dataREffettiva +
+                ", dataPrevista=" + dataPrevista +
+                ", dataEffettiva=" + dataEffettiva +
                 '}';
     }
 }

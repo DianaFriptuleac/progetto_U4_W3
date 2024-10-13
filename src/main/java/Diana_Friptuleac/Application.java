@@ -1,11 +1,11 @@
 package Diana_Friptuleac;
 
-import Diana_Friptuleac.classi.Catalogo;
-import Diana_Friptuleac.classi.Prestito;
-import Diana_Friptuleac.classi.Utente;
+import Diana_Friptuleac.classi.*;
 import Diana_Friptuleac.dao.CatalogoDAO;
 import Diana_Friptuleac.dao.PrestitoDAO;
 import Diana_Friptuleac.dao.UtenteDAO;
+import Diana_Friptuleac.enums.GenereLibri;
+import Diana_Friptuleac.enums.Periodicita;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -25,7 +25,7 @@ public class Application {
         UtenteDAO utenteDAO = new UtenteDAO(em);
         PrestitoDAO prestitoDAO = new PrestitoDAO(em);
 
-       /* //****************************** 1. Aggiunta di un elemento del catalogo ************************************
+        //****************************** 1. Aggiunta di un elemento del catalogo ************************************
         // Salvo libri
         Libri l1 = new Libri("Il Signore degli Anelli", 1954, 1216, "Tolkien", GenereLibri.FANTASY);
         Libri l2 = new Libri("Il Nome della Rosa", 1980, 512, "Umberto Eco", GenereLibri.GIALLO);
@@ -34,13 +34,13 @@ public class Application {
         Libri l5 = new Libri("Sissi", 2023, 230, "Sperling Kupfe", GenereLibri.ROMANZI);
 
 
-        /*catalogoDAO.saveElement(l1);
+      /*  catalogoDAO.saveElement(l1);
         catalogoDAO.saveElement(l2);
         catalogoDAO.saveElement(l3);
         catalogoDAO.saveElement(l4);
         catalogoDAO.saveElement(l5);*/
 
-/*
+
         //Salvo riviste
         Riviste r1 = new Riviste("Focus", 2024, 120, Periodicita.MENSILE);
         Riviste r2 = new Riviste("Forbes", 2024, 150, Periodicita.MENSILE);
@@ -48,103 +48,108 @@ public class Application {
         Riviste r4 = new Riviste("L'espresso", 2023, 130, Periodicita.SEMESTRALE);
         Riviste r5 = new Riviste("Giallo Zafferano", 2024, 110, Periodicita.MENSILE);
 
-      /*  catalogoDAO.saveElement(r1);
+       /* catalogoDAO.saveElement(r1);
         catalogoDAO.saveElement(r2);
         catalogoDAO.saveElement(r3);
         catalogoDAO.saveElement(r4);
-        catalogoDAO.saveElement(r5);
-
-       */
+        catalogoDAO.saveElement(r5);*/
 
 
         //********************************* 2.Rimozione di un elemento del catalogo dato un codice ISBN ********
-        //catalogoDAO.deleteElement(UUID.fromString("9d1c5f2c-3b9c-4210-8443-7708725edd5b"));
+        //   catalogoDAO.deleteElement(UUID.fromString("fa7c6490-8b10-472b-8b1d-e04289957245"));
 
 
         //********************************** 3.Ricerca per ISBN ******************************
-        Catalogo elementById1 = catalogoDAO.findById("20f0ffec-604e-4984-a1ad-f7fb4a356eea");
-        Catalogo elementById2 = catalogoDAO.findById("24ea04ec-b6e8-4772-85f4-f4d8671caaba");
-        System.out.println("Elemento trovato: " + elementById1);
-        System.out.println("Elemento trovato: " + elementById2);
+        Catalogo elementById1 = catalogoDAO.findById("c76049a8-4932-4206-8451-dfd04471ae21");
+        Catalogo elementById2 = catalogoDAO.findById("c58416a3-bd77-4f49-812f-f2c451d0d89d");
+        //  System.out.println("Elemento trovato: " + elementById1);
+        //  System.out.println("Elemento trovato: " + elementById2);  */
 
-/*
+
         //********************************** 4.Ricerca per anno pubblicazione ******************************
-        List<Catalogo> elementByYear1 = catalogoDAO.findByYear(2024);
-        List<Catalogo> elementByYear2 = catalogoDAO.findByYear(1997);
+    /*    List<Catalogo> elementByYear1 = catalogoDAO.findByYear(2024);
+        List<Catalogo> elementByYear2 = catalogoDAO.findByYear(1954);
         System.out.println("******************* Elementi trovati per l'anno 2024: ******************");
         for (Catalogo catalogo : elementByYear1) {
             System.out.println(catalogo);
         }
         System.out.println();
 
-        System.out.println("******************** Elementi trovati per l'anno 1997: *******************");
+        System.out.println("******************** Elementi trovati per l'anno 1954: *******************");
         for (Catalogo catalogo : elementByYear2) {
             System.out.println(catalogo);
         }
-        System.out.println();
+        System.out.println(); */
 
         //********************************** 5.Ricerca per autore ******************************
-        List<Libri> libriPerAutore = catalogoDAO.findByAutore("Umberto Eco");
+      /*  List<Libri> libriPerAutore = catalogoDAO.findByAutore("Umberto Eco");
         System.out.println("******************** Libri scritti da Umberto Eco: *******************");
         for (Libri libro : libriPerAutore) {
             System.out.println(libro);
         }
 
-        System.out.println();
+        System.out.println(); */
 
         //********************************** 6.Ricerca per titolo o parte di esso ***********************
-        List<Catalogo> elemntoPerTitolo = catalogoDAO.findByTitle("Forbes");
+    /*    List<Catalogo> elemntoPerTitolo = catalogoDAO.findByTitle("Forbes");
         System.out.println("******************** Elemento con il titolo Forbes: *******************");
-        System.out.println(elemntoPerTitolo);
+        System.out.println(elemntoPerTitolo); */
 
         //***************************************************************************************************
-*/
+
         //----------- Savo utenti
         Utente u1 = new Utente("Anna", "Margini", LocalDate.of(19886, 5, 24));
-        //  Utente u2 = new Utente("Luca", "Biagi", LocalDate.of(1984, 3, 28));
-        //  Utente u3 = new Utente("Marina", "Voli", LocalDate.of(1995, 8, 30));
-        //  System.out.println("Utente trovato 1: " + u1);
+        Utente u2 = new Utente("Luca", "Biagi", LocalDate.of(1984, 3, 28));
+        Utente u3 = new Utente("Marina", "Voli", LocalDate.of(1995, 8, 30));
 
-      /*  utenteDAO.saveUtente(u1);
+
+       /* utenteDAO.saveUtente(u1);
         utenteDAO.saveUtente(u2);
-        utenteDAO.saveUtente(u3);
+        utenteDAO.saveUtente(u3); */
+
+
+        //Cerco utenti e articoli per id
+        Utente uFind1 = utenteDAO.findById("39b7405b-acf8-4be8-91a0-7d4e9b2dd115");
+        Catalogo r1F = catalogoDAO.findById("5b2bec7e-5c58-4fd8-94b7-daa6a2cf6dc0");
+        Utente uFind2 = utenteDAO.findById("5c4589ec-31ec-4b01-b55b-e26681842484");
+        Catalogo l1F = catalogoDAO.findById("139d77f5-2a79-4926-b60a-a26d7f9fd731");
+
+     /*   System.out.println("Utente trovato 1: " + uFind1.getIdTessera() + " - " + uFind1.getCognome());
+        System.out.println("Utente trovato 2: " + uFind2.getIdTessera() + " - " + uFind2.getCognome());
+        System.out.println("Articolo trovato 1: " + r1F.getISBN() + " - " + r1F.getTitolo());
+        System.out.println("Articolo trovato 2: " + l1F.getISBN() + " - " + l1F.getTitolo());
+
 */
-
-        //Cerco gli utenti per id
-        Utente uFind1 = utenteDAO.findById("f5c25752-d7df-4d10-a4cd-90aeb2dd5f0a");
-        Catalogo r1F = catalogoDAO.findById("034f631c-2478-43ca-b78a-93e11c53a290");
-        // Utente uFind2 = utenteDAO.findById("f7d67e34-3ca3-4e22-89de-58d0d0db6b47");
-
-        System.out.println("Utente trovato 1: " + uFind1.getIdTessera());
-        //  System.out.println("Utente trovato 2: " + uFind2.getIdTessera());
-
-
+        //Creao il prestito
         Prestito p1 = new Prestito(uFind1, r1F, LocalDate.now(), null);
-        System.out.println("Prestito per utente ID: " + p1.getUtente());
-        // Prestito p2 = new Prestito(uFind2, elementById2, LocalDate.of(2024, 10, 8), LocalDate.of(2024, 11, 30));
-        // System.out.println("Prestito per utente ID: " + p2.getUtente().getIdTessera());
+        //   System.out.println("Prestito per utente ID: " + p1.getUtente());
+        Prestito p2 = new Prestito(uFind2, l1F, LocalDate.of(2024, 10, 8), null);
+        //   System.out.println("Prestito per utente ID: " + p2.getUtente());
+        Prestito p3 = new Prestito(uFind1, elementById1, LocalDate.of(2024, 9, 8), null);
+        //   System.out.println("Prestito per utente ID: " + p3.getUtente());
 
         // Salva i prestiti nel database
-        prestitoDAO.savePrestito(p1);
+        // prestitoDAO.savePrestito(p1);
         // prestitoDAO.savePrestito(p2);
+        // prestitoDAO.savePrestito(p3);  - prestito scaduto
 
 
         //***************************************************************************************************
 
         //******************** 7.Ricerca degli elementi attualmente in prestito dato un numero di tessera utente ***********************
-        List<Prestito> prestitiAttivi = prestitoDAO.findByPrestito(uFind1.getIdTessera());
+      /*  List<Prestito> prestitiAttivi = prestitoDAO.findByPrestito(uFind1.getIdTessera());
         System.out.println("Prestiti attualmente in corso per gli utente: ");
         for (Prestito elemento : prestitiAttivi) {
             System.out.println(elemento);
         }
+       */
 
-        //******************** 7.Ricerca per prestiti scaduti ***********************
+        //******************** 8.Ricerca per prestiti scaduti ***********************
         List<Prestito> prestitiScaduti = prestitoDAO.findByPScaduto();
         System.out.println("Prestiti scaduti per: ");
         for (Prestito prestito : prestitiScaduti) {
             System.out.println(prestito);
         }
-
 
         em.close();
         emf.close();
