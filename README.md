@@ -8,7 +8,7 @@ Ho scelto questa strategia per collegare Prestito a Utente e Catalogo perche mi 
 così come tra i prestiti e gli elementi del catalogo. 
 Ogni prestito può riferirsi a un singolo utente e a un singolo elemento del catalogo.
 
-OneToMany con Cascade e OrphanRemoval:
+OneToMany con Cascade.ALL:
 Questa mi facilita la gestione delle relazioni tra Utente e Prestito. 
 Utilizzando CascadeType.ALL posso garantire che tutte le operazioni sugli utenti (come la rimozione o l'aggiornamento) 
 si riflettano automaticamente sui prestiti associati. Ciò mantiene l'integrità dei dati e mi riduce il rischio di inconsistenze.
